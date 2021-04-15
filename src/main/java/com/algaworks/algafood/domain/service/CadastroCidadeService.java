@@ -17,28 +17,30 @@ import com.algaworks.algafood.domain.repository.EstadoRepository;
 @Service
 public class CadastroCidadeService {
 	
+	private static final String CIDADE_EM_USO = "Cidade de código: %d não pode ser excluida, esta em uso";
+
+	private static final String CIDADE_NÃO_ENCONTRADA = "Cidade de código %d não encontrada";
+
 	@Autowired
 	private CidadeRepository  cidadeRepository;
 	
 	@Autowired
 	private EstadoRepository estadoRepository;
 	
+	@Autowired
+	private CadastroEstadoService cadastroEstado;
+	
 	
 	
 	public Cidade salvar(Cidade cidade) {
-		Long estadoID = cidade.getEstado().getId();
-		Optional<Estado> estado = estadoRepository.findById(estadoID);
-		
-		if (estado.isEmpty()) {	
-			throw new EntidadeNaoEncontradaException(String.format("Estado id %d não encontrado", estadoID));
-		}
-		
-		Estado estadoAtual  = estado.get();
-		cidade.setEstado(estadoAtual);
-		return  cidadeRepository.save(cidade);
-		
+	    Long estadoId = cidade.getEstado().getId();
+
+	    Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
+
+	    cidade.setEstado(estado);
+	    
+	    return cidadeRepository.save(cidade);
 	}
-	
 	
 	
 	public void excluir (Long Cidadeid) {
@@ -47,11 +49,18 @@ public class CadastroCidadeService {
 		cidadeRepository.deleteById(Cidadeid);
 		}catch(EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEncontradaException(
-					String.format("Cidade de código %d não encontrada", Cidadeid));
+					String.format(CIDADE_NÃO_ENCONTRADA, Cidadeid));
 		}catch(DataIntegrityViolationException e ) {
-			throw new EntidadeEmUsoException(String.format("Cidade de código: %d não pode ser excluida, esta em uso", Cidadeid));
+			throw new EntidadeEmUsoException(String.format(CIDADE_EM_USO, Cidadeid));
 		}
 		
+	}
+	
+	
+	public Cidade buscarOuFalhar(Long idCidade) {
+		return cidadeRepository.findById(idCidade)
+				.orElseThrow(() -> new EntidadeNaoEncontradaException(
+						String.format(CIDADE_NÃO_ENCONTRADA, idCidade)));
 	}
 
 }
