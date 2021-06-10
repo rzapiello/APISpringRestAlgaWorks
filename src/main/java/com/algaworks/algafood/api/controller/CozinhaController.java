@@ -47,6 +47,10 @@ public class CozinhaController {
 	//@ResponseStatus(HttpStatus.CREATED)
 	@GetMapping("/{cozinhaId}")
 		public Cozinha  buscar(@PathVariable Long cozinhaId){
+			//if (true) {
+			//	throw new IllegalArgumentException("teste");
+			//	
+			//}
 
 			 return cadastroCozinha.buscarOuFalhar(cozinhaId);
 		
