@@ -30,7 +30,7 @@ import lombok.EqualsAndHashCode;
 public class Cozinha {
 	
 	@Valid
-	@NotNull(groups = Groups.CadastroRestaurante.class)
+	@NotNull(groups = Groups.CozinhaId.class)
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
