@@ -2,7 +2,6 @@ package com.algaworks.algafood.infrastruture.repository;
 
 import java.util.Optional;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;

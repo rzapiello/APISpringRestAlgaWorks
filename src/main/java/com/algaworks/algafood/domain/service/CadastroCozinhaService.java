@@ -3,13 +3,10 @@ package com.algaworks.algafood.domain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaService;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
-import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 
@@ -22,9 +19,10 @@ public class CadastroCozinhaService {
 	private CozinhaRepository cozinhaRepository;
 	
 	
-	public Cozinha salvar(Cozinha cozinha) {
-		return cozinhaRepository.save(cozinha);
-			
+	public Cozinha buscarOuFalhar(Long cozinhaId) {
+		return  cozinhaRepository.findById(cozinhaId).
+				orElseThrow(() -> new CozinhaNaoEncontradaService( cozinhaId)
+						);
 	}
 	
 	public void excluir(Long cozinhaId) {
@@ -44,10 +42,9 @@ public class CadastroCozinhaService {
 		
 	}
 	
-	public Cozinha buscarOuFalhar(Long cozinhaId) {
-		return  cozinhaRepository.findById(cozinhaId).
-				orElseThrow(() -> new CozinhaNaoEncontradaService( cozinhaId)
-						);
+	public Cozinha salvar(Cozinha cozinha) {
+		return cozinhaRepository.save(cozinha);
+			
 	}
 
 }

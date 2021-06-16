@@ -1,7 +1,5 @@
 package com.algaworks.algafood.infrastruture.repository.spec;
 
-import java.math.BigDecimal;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;

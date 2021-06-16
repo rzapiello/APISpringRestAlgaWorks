@@ -6,7 +6,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
-import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Estado;
 import com.algaworks.algafood.domain.repository.EstadoRepository;
@@ -19,9 +18,10 @@ public class CadastroEstadoService {
 	@Autowired
 	private EstadoRepository  estadoRepository;
 	
-	public Estado salvar(Estado estado) {
-		
-		return estadoRepository.save(estado);
+	public Estado buscarOuFalhar(Long estadoId) {
+		return estadoRepository.findById(estadoId)
+				.orElseThrow(()-> new EstadoNaoEncontradoException(estadoId));
+
 	}
 	
 	public void  excluir(Long idEstado) {
@@ -39,10 +39,9 @@ public class CadastroEstadoService {
 		
 	}
 	
-	public Estado buscarOuFalhar(Long estadoId) {
-		return estadoRepository.findById(estadoId)
-				.orElseThrow(()-> new EstadoNaoEncontradoException(estadoId));
-
+	public Estado salvar(Estado estado) {
+		
+		return estadoRepository.save(estado);
 	}
 	
 	

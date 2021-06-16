@@ -22,10 +22,10 @@ import javax.validation.constraints.PositiveOrZero;
 @PositiveOrZero
 public @interface TaxaFrete {
 	
+	Class<?>[] groups() default { };
+
 	@OverridesAttribute(constraint = PositiveOrZero.class, name = "message")
 	String message() default "{TaxaFrete.invalida}";
-
-	Class<?>[] groups() default { };
 
 	Class<? extends Payload>[] payload() default { };
 

@@ -14,13 +14,13 @@ import javax.validation.Payload;
 @Constraint(validatedBy =  {ValorZeroIncluiDescricaoValidator.class})
 public @interface ValorZeroIncluiDescricao {
 	
-	String message() default "Descrição obrigatória inválida";
+	String descricaoField();
+
+	String descricaoObrigatoria();
 
 	Class<?>[] groups() default { };
-
-	Class<? extends Payload>[] payload() default { };
 	
+	String message() default "Descrição obrigatória inválida";
+	Class<? extends Payload>[] payload() default { };
 	String valorField();
-	String descricaoField();
-	String descricaoObrigatoria();
 }
