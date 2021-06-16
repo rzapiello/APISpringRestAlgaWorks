@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaService;
@@ -21,7 +22,7 @@ import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 
 //@EnableJpaRepositories
-//@ComponentScan({"com.algaworks.algafood"})
+@ComponentScan({"com.algaworks.algafood"})
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { CadastroCozinhaIntegrationTests.class })
 public class CadastroCozinhaIntegrationTests {
