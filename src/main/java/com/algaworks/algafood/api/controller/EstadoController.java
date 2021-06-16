@@ -24,48 +24,44 @@ import com.algaworks.algafood.domain.service.CadastroEstadoService;
 @RestController
 @RequestMapping("/estados")
 public class EstadoController {
-	
-	@Autowired
-	private EstadoRepository estadoRepository;
-	
+
 	@Autowired
 	private CadastroEstadoService cadastroEstado;
-	
-	
+
+	@Autowired
+	private EstadoRepository estadoRepository;
+
 	@PutMapping("/{idEstado}")
 	public Estado atualizar(@PathVariable Long idEstado, @RequestBody @Valid Estado estado) {
-		
-		Estado  estadoAtual = cadastroEstado.buscarOuFalhar(idEstado);
+
+		Estado estadoAtual = cadastroEstado.buscarOuFalhar(idEstado);
 		BeanUtils.copyProperties(estado, estadoAtual, "id");
-			
+
 		return cadastroEstado.salvar(estadoAtual);
-		}
-	
-	
-	
+	}
+
 	@GetMapping("/{idEstado}")
-	public  Estado  buscar(@PathVariable Long idEstado) {
+	public Estado buscar(@PathVariable Long idEstado) {
 		return cadastroEstado.buscarOuFalhar(idEstado);
 
 	}
-	
+
 	@GetMapping
-	public List<Estado> listar(){
+	public List<Estado> listar() {
 		return estadoRepository.findAll();
 	}
-	
+
 	@DeleteMapping("/{idEstado}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long idEstado) {
-			cadastroEstado.excluir(idEstado);
-		}
-		
+		cadastroEstado.excluir(idEstado);
+	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Estado salvar(@RequestBody @Valid Estado estado) {
 		return estadoRepository.save(estado);
-		
+
 	}
 
 }

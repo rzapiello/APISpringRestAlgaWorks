@@ -26,66 +26,56 @@ import com.algaworks.algafood.domain.service.CadastroCidadeService;
 @RestController
 @RequestMapping("/cidades")
 public class CidadeController {
-	
-	@Autowired 
-	private CidadeRepository cidadeRepository;
-	
+
 	@Autowired
 	private CadastroCidadeService cadastroCidade;
-	
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cidade adicionar(@RequestBody  @Valid Cidade cidade) {
+	public Cidade adicionar(@RequestBody @Valid Cidade cidade) {
 		try {
-		return cadastroCidade.salvar(cidade);
-		}catch(EstadoNaoEncontradoException e) {
-		throw new NegocioException(e.getMessage(),e);
-		
-	}
-			//return cidade;
+			return cadastroCidade.salvar(cidade);
+		} catch (EstadoNaoEncontradoException e) {
+			throw new NegocioException(e.getMessage(), e);
+
 		}
-	
-	
+		// return cidade;
+	}
+
 	@PutMapping("/{idCidade}")
-	public Cidade atualizar(@PathVariable Long idCidade, @RequestBody  @Valid Cidade cidade) {
-		
-		
-		
+	public Cidade atualizar(@PathVariable Long idCidade, @RequestBody @Valid Cidade cidade) {
+
 		try {
-			
+
 			Cidade cidadeAtual = cadastroCidade.buscarOuFalhar(idCidade);
 			BeanUtils.copyProperties(cidade, cidadeAtual, "id");
 			return cadastroCidade.salvar(cidadeAtual);
-		}catch(EstadoNaoEncontradoException e) {
-			throw new NegocioException(e.getMessage(),e);
-			
+		} catch (EstadoNaoEncontradoException e) {
+			throw new NegocioException(e.getMessage(), e);
+
 		}
 
 	}
-	
-	
+
 	@GetMapping("/{idCidade}")
 	public Cidade buscar(@PathVariable Long idCidade) {
-		return  cadastroCidade.buscarOuFalhar(idCidade);
+		return cadastroCidade.buscarOuFalhar(idCidade);
 	}
-	
-	
+
 	@GetMapping
-	public List<Cidade> listar(){
+	public List<Cidade> listar() {
 		return cidadeRepository.findAll();
 	}
-	
-	
+
 	@DeleteMapping("/{idCidade}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover (@PathVariable Long idCidade) {
-		
-		cadastroCidade.excluir(idCidade);
-				
-	}
-	
-	
-	
-	
-}
+	public void remover(@PathVariable Long idCidade) {
 
+		cadastroCidade.excluir(idCidade);
+
+	}
+
+}

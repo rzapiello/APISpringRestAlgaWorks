@@ -14,48 +14,42 @@ import com.algaworks.algafood.domain.repository.EstadoRepository;
 
 @Service
 public class CadastroCidadeService {
-	
+
 	private static final String CIDADE_EM_USO = "Cidade de código: %d não pode ser excluida, esta em uso";
 
-
-	@Autowired
-	private CidadeRepository  cidadeRepository;
-	
-	@Autowired
-	private EstadoRepository estadoRepository;
-	
 	@Autowired
 	private CadastroEstadoService cadastroEstado;
-	
-	
-	
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private EstadoRepository estadoRepository;
+
 	public Cidade buscarOuFalhar(Long idCidade) {
-		return cidadeRepository.findById(idCidade)
-				.orElseThrow(() -> new CidadeNaoEncontradaException(idCidade));
+		return cidadeRepository.findById(idCidade).orElseThrow(() -> new CidadeNaoEncontradaException(idCidade));
 	}
-	
-	
-	public void excluir (Long Cidadeid) {
+
+	public void excluir(Long Cidadeid) {
 
 		try {
-		cidadeRepository.deleteById(Cidadeid);
-		}catch(EmptyResultDataAccessException e) {
+			cidadeRepository.deleteById(Cidadeid);
+		} catch (EmptyResultDataAccessException e) {
 			throw new CidadeNaoEncontradaException(Cidadeid);
-		}catch(DataIntegrityViolationException e ) {
+		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(String.format(CIDADE_EM_USO, Cidadeid));
 		}
-		
+
 	}
-	
-	
+
 	public Cidade salvar(Cidade cidade) {
-	    Long estadoId = cidade.getEstado().getId();
+		Long estadoId = cidade.getEstado().getId();
 
-	    Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
+		Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
 
-	    cidade.setEstado(estado);
-	    
-	    return cidadeRepository.save(cidade);
+		cidade.setEstado(estado);
+
+		return cidadeRepository.save(cidade);
 	}
 
 }

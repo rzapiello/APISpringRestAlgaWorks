@@ -20,30 +20,28 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-
-
 @JsonRootName("cozinha")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 //@Table(name = "tab_cozinhas")//Quando for nome diferente de tabela
 public class Cozinha {
-	
+
 	@Valid
 	@NotNull(groups = Groups.CozinhaId.class)
 	@EqualsAndHashCode.Include
 	@Id
-	@GeneratedValue(strategy =GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	//@JsonIgnore
-	//@JsonProperty("titulo")
-	
+
+	// @JsonIgnore
+	// @JsonProperty("titulo")
+
 	@NotBlank
 	@Column(nullable = false)
 	private String nome;
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy="cozinha")
+	@OneToMany(mappedBy = "cozinha")
 	private List<Restaurante> restaurantes = new ArrayList<>();
 }

@@ -11,16 +11,18 @@ import javax.validation.Payload;
 
 @Target({ ElementType.TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy =  {ValorZeroIncluiDescricaoValidator.class})
+@Constraint(validatedBy = { ValorZeroIncluiDescricaoValidator.class })
 public @interface ValorZeroIncluiDescricao {
-	
+
 	String descricaoField();
 
 	String descricaoObrigatoria();
 
-	Class<?>[] groups() default { };
-	
+	Class<?>[] groups() default {};
+
 	String message() default "Descrição obrigatória inválida";
-	Class<? extends Payload>[] payload() default { };
+
+	Class<? extends Payload>[] payload() default {};
+
 	String valorField();
 }

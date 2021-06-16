@@ -11,16 +11,13 @@ import com.algaworks.algafood.domain.model.Restaurante;
 
 import lombok.AllArgsConstructor;
 
-
 @AllArgsConstructor
-public class RestauranteComNomeSemelhanteSpec implements Specification<Restaurante> 
-{
+public class RestauranteComNomeSemelhanteSpec implements Specification<Restaurante> {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String nome;
-	
-	
+
 	@Override
 	public Predicate toPredicate(Root<Restaurante> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
 		// TODO Auto-generated method stub

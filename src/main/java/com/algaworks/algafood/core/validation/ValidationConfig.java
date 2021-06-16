@@ -7,12 +7,12 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
 public class ValidationConfig {
-	
+
 	@Bean
 	public LocalValidatorFactoryBean validator(MessageSource messageSorce) {
 		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
 		bean.setValidationMessageSource(messageSorce);
-		return  bean;
+		return bean;
 	}
 
 }

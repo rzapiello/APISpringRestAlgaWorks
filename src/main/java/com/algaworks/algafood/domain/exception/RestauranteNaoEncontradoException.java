@@ -1,7 +1,7 @@
 package com.algaworks.algafood.domain.exception;
 
 public class RestauranteNaoEncontradoException extends EntidadeNaoEncontradaException {
-	
+
 	/**
 	 * 
 	 */
@@ -10,7 +10,7 @@ public class RestauranteNaoEncontradoException extends EntidadeNaoEncontradaExce
 	public RestauranteNaoEncontradoException(Long restauranteId) {
 		this(String.format("Restaurante de id: %d não existe", restauranteId));
 	}
-	
+
 	public RestauranteNaoEncontradoException(String Mensagem) {
 		super(Mensagem);
 	}

@@ -13,7 +13,7 @@ import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
 
 @Repository
 public class FormaPagamentoRepositoryImpl implements FormaPagamentoRepository {
-	
+
 	@PersistenceContext
 	EntityManager manager;
 
@@ -26,13 +26,13 @@ public class FormaPagamentoRepositoryImpl implements FormaPagamentoRepository {
 	public List<FormaPagamento> listar() {
 		return manager.createQuery("from FormaPagamento", FormaPagamento.class).getResultList();
 	}
-	
+
 	@Transactional
 	@Override
 	public void remover(FormaPagamento formaPagamento) {
 		formaPagamento = buscar(formaPagamento.getId());
 		manager.remove(formaPagamento);
-	
+
 	}
 
 	@Transactional

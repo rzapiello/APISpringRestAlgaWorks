@@ -18,25 +18,25 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Produto {
 
+	@Column(nullable = false)
+	boolean ativo;
+
+	@Column(nullable = false)
+	private String descricao;
+
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String nome;
 
 	@Column(nullable = false)
-	private String descricao;
-	
-	@Column(nullable = false)
 	private BigDecimal preco;
-	
-	@Column(nullable = false)
-	boolean ativo;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Restaurante restaurante;
-	
+
 }

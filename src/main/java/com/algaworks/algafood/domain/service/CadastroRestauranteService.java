@@ -11,33 +11,29 @@ import com.algaworks.algafood.domain.repository.RestauranteRepository;
 
 @Service
 public class CadastroRestauranteService {
-	
+
+	@Autowired
+	private CadastroCozinhaService cadastroCozinha;
+
+	@Autowired
+	private CozinhaRepository cozinhaRepository;
 
 	@Autowired
 	private RestauranteRepository restauranteRepository;
 
-	@Autowired
-	private CozinhaRepository cozinhaRepository;
-	
-	@Autowired
-	private CadastroCozinhaService cadastroCozinha;
-	
-	
 	public Restaurante buscarOuFalhar(Long restauranteId) {
-	    return restauranteRepository.findById(restauranteId)
-	        .orElseThrow(() -> new RestauranteNaoEncontradoException(restauranteId)
-	        		);
+		return restauranteRepository.findById(restauranteId)
+				.orElseThrow(() -> new RestauranteNaoEncontradoException(restauranteId));
 	}
-	
-	
+
 	public Restaurante salvar(Restaurante restaurante) {
-	    Long cozinhaId = restaurante.getCozinha().getId();
-	    
-	    Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
-	    
-	    restaurante.setCozinha(cozinha);
-	    
-	    return restauranteRepository.save(restaurante);
+		Long cozinhaId = restaurante.getCozinha().getId();
+
+		Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
+
+		restaurante.setCozinha(cozinha);
+
+		return restauranteRepository.save(restaurante);
 	}
 
 }

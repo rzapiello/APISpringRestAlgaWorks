@@ -11,24 +11,24 @@ import lombok.Data;
 @Data
 @Embeddable
 public class Endereco {
-	
-	@Column(name ="endereco_cep")
-	private String Cep;
-	
-	@Column(name ="endereco_logradouro")
-	private String logradouro;
-	
-	@Column(name ="endereco_numero")
-	private String numero;
-	
-	@Column(name ="endereco_complemento")
-	private String complemento;
-	
-	@Column(name ="endereco_bairro")
+
+	@Column(name = "endereco_bairro")
 	private String bairro;
-	
+
+	@Column(name = "endereco_cep")
+	private String Cep;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "endereco_cidade_id")
 	private Cidade cidade;
+
+	@Column(name = "endereco_complemento")
+	private String complemento;
+
+	@Column(name = "endereco_logradouro")
+	private String logradouro;
+
+	@Column(name = "endereco_numero")
+	private String numero;
 
 }

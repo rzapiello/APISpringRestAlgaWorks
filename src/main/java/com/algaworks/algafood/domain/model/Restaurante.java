@@ -33,61 +33,57 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@ValorZeroIncluiDescricao(valorField="taxaFrete", descricaoField="nome", descricaoObrigatoria = "Frete Grátis")
+@ValorZeroIncluiDescricao(valorField = "taxaFrete", descricaoField = "nome", descricaoObrigatoria = "Frete Grátis")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Restaurante {
-	
-	@Id
-	@EqualsAndHashCode.Include
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@NotBlank
-	@Column(nullable = false)
-	private String nome;
-	
-	@NotNull
-	@PositiveOrZero
-	//@TaxaFrete
-	//@Multiplo(numero = 5)
-	@Column(name =" taxa_frete", nullable = false)
-	private BigDecimal taxaFrete;
-	
-	
+
 	@Valid
 	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
 	@NotNull
-	@ManyToOne//(fetch = FetchType.LAZY)
-	@JoinColumn(name ="cozinha_id",nullable = false)
+	@ManyToOne // (fetch = FetchType.LAZY)
+	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
-	
-	@JsonIgnore
-	@Embedded
-	private Endereco endereco;
 
-	@JsonIgnore	
+	@JsonIgnore
+	@UpdateTimestamp
+	@Column(nullable = false, columnDefinition = "datetime")
+	private LocalDateTime dataAtualizacao;
+
+	@JsonIgnore
 	@CreationTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
 	private LocalDateTime dataCadastro;
 
-	@JsonIgnore	
-	@UpdateTimestamp
-	@Column(nullable = false, columnDefinition = "datetime")
-	private LocalDateTime dataAtualizacao;
-	
 	@JsonIgnore
-	//@ManyToMany(fetch = FetchType.EAGER)
+	@Embedded
+	private Endereco endereco;
+
+	@JsonIgnore
+	// @ManyToMany(fetch = FetchType.EAGER)
 	@ManyToMany
-	@JoinTable(name = "restaurante_forma_pagamento",
-			joinColumns = @JoinColumn(name ="restaurante_id"),
-			inverseJoinColumns =  @JoinColumn(name ="forma_pagamento_id"))
-	private List<FormaPagamento>  formasPagamento = new ArrayList<>();
-	
-	
+	@JoinTable(name = "restaurante_forma_pagamento", joinColumns = @JoinColumn(name = "restaurante_id"), inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
+	private List<FormaPagamento> formasPagamento = new ArrayList<>();
+
+	@Id
+	@EqualsAndHashCode.Include
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@NotBlank
+	@Column(nullable = false)
+	private String nome;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "restaurante")
 	private List<Produto> produtos = new ArrayList<>();
-	
+
+	@NotNull
+	@PositiveOrZero
+	// @TaxaFrete
+	// @Multiplo(numero = 5)
+	@Column(name = " taxa_frete", nullable = false)
+	private BigDecimal taxaFrete;
+
 }

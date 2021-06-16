@@ -13,7 +13,7 @@ import com.algaworks.algafood.domain.repository.PermissaoRepository;
 
 @Repository
 public class PermissaoRepositoryImpl implements PermissaoRepository {
-	
+
 	@PersistenceContext
 	EntityManager manager;
 
@@ -32,9 +32,9 @@ public class PermissaoRepositoryImpl implements PermissaoRepository {
 	public void remover(Permissao permissao) {
 		permissao = buscar(permissao.getId());
 		manager.remove(permissao);
-		
+
 	}
-	
+
 	@Transactional
 	@Override
 	public Permissao salvar(Permissao permissao) {

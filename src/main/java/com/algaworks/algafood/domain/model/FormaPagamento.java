@@ -13,13 +13,13 @@ import lombok.EqualsAndHashCode;
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class FormaPagamento {
-	
+
+	@Column(nullable = false)
+	private String descricao;
+
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private Long id;
-	
-	@Column(nullable = false)
-	private  String descricao;
 
 }

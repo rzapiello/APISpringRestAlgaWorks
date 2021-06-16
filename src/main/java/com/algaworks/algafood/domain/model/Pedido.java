@@ -23,42 +23,40 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Pedido {
-	
+
+	@ManyToOne
+	@JoinColumn(name = "usuario_cliente_id", nullable = false)
+	private Usuario cliente;
+
+	private LocalDateTime dataCancelamento;
+	private LocalDateTime dataConfirmacao;
+	@CreationTimestamp
+	private LocalDateTime dataCriacao;
+
+	private LocalDateTime dataIntegra;
+
+	@Embedded
+	private Endereco endereco;
+
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private FormaPagamento formaPagamento;
 	@Id
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	private BigDecimal subtotal;
-	private BigDecimal taxaFrete;
-	private BigDecimal valorTotal;	
-	
-	@Embedded
-	private Endereco endereco;
-	
-	private StatusPedido status;
-	
-	@CreationTimestamp
-	private LocalDateTime dataCriacao;
-	private LocalDateTime dataConfirmacao;
-	private LocalDateTime dataCancelamento;
-	private LocalDateTime dataIntegra;
-	
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private FormaPagamento formaPagamento;
-	
-	@ManyToOne
-	@JoinColumn(name = "usuario_cliente_id",nullable = false)
-	private Usuario cliente;
-	
-
+	@OneToMany(mappedBy = "pedido")
+	private List<ItemPedido> itens = new ArrayList<>();
 	@ManyToOne
 	@JoinColumn(name = "restaurante_id", nullable = false)
 	private Restaurante restaurante;
 
-	  @OneToMany(mappedBy = "pedido")
-	   private List<ItemPedido> itens = new ArrayList<>();
+	private StatusPedido status;
 
+	private BigDecimal subtotal;
+
+	private BigDecimal taxaFrete;
+
+	private BigDecimal valorTotal;
 
 }

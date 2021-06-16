@@ -16,15 +16,15 @@ import javax.validation.Payload;
 
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = {MultiploValidator.class })
+@Constraint(validatedBy = { MultiploValidator.class })
 
 public @interface Multiplo {
-	Class<?>[] groups() default { };
+	Class<?>[] groups() default {};
 
 	String message() default "Multiplo invalido";
 
 	int numero();
-	
-	Class<? extends Payload>[] payload() default { };
+
+	Class<? extends Payload>[] payload() default {};
 
 }

@@ -17,16 +17,15 @@ import lombok.EqualsAndHashCode;
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Estado {
-	
+
 	@Id
 	@NotNull(groups = Groups.EstadoId.class)
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	
+
 	@NotBlank
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String nome;
 
 }

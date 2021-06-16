@@ -13,22 +13,22 @@ import lombok.Getter;
 @Getter
 @Builder
 public class Problem {
-	
+
 	@Getter
 	@Builder
-	public static class Objects{
+	public static class Objects {
 		private String name;
 		private String userMessage;
 	}
-	private Integer status;
-	private String type;
-	private String title;
-	
+
 	private String detail;
-	private String userMessage;
-	private LocalDateTime timestamp;
-	
-	
 	private List<Objects> objects;
+	private Integer status;
+
+	private LocalDateTime timestamp;
+	private String title;
+	private String type;
+
+	private String userMessage;
 
 }
