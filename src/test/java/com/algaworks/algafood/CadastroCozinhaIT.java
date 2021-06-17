@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -24,7 +25,7 @@ import io.restassured.http.ContentType;
 @SpringBootTest(/*classes = { CadastroCozinhaIT.class },*/ webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //@ComponentScan({ "com.algaworks.algafood" })
 @ExtendWith(SpringExtension.class)
-@TestPropertySource("application-test.properties")
+@TestPropertySource("/application-test.properties")
 public class CadastroCozinhaIT {
 	
 	@LocalServerPort
