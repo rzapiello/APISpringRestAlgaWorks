@@ -14,20 +14,19 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.algaworks.algafood.core.validation.Groups;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonRootName;
+
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@JsonRootName("cozinha")
+//@JsonRootName("cozinha")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 //@Table(name = "tab_cozinhas")//Quando for nome diferente de tabela
 public class Cozinha {
 
-	@Valid
+	//@Valid
 	@NotNull(groups = Groups.CozinhaId.class)
 	@EqualsAndHashCode.Include
 	@Id
@@ -41,7 +40,7 @@ public class Cozinha {
 	@Column(nullable = false)
 	private String nome;
 
-	@JsonIgnore
+
 	@OneToMany(mappedBy = "cozinha")
 	private List<Restaurante> restaurantes = new ArrayList<>();
 }

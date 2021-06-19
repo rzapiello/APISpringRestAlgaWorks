@@ -22,14 +22,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Cidade {
-
-	@Valid
-	@ConvertGroup(from = Default.class, to = Groups.EstadoId.class)
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "estado_id", nullable = false)
-	private Estado estado;
-
+	
 	@Id
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,5 +31,14 @@ public class Cidade {
 	@NotBlank
 	@Column(nullable = false)
 	private String nome;
+
+	@Valid
+	@ConvertGroup(from = Default.class, to = Groups.EstadoId.class)
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "estado_id", nullable = false)
+	private Estado estado;
+
+	
 
 }

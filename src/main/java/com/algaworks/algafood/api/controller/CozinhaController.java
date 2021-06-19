@@ -27,10 +27,22 @@ import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 public class CozinhaController {
 
 	@Autowired
+	private CozinhaRepository cozinhaRepository;
+	
+	@Autowired
 	private CadastroCozinhaService cadastroCozinha;
 
-	@Autowired
-	private CozinhaRepository cozinhaRepository;
+	@GetMapping
+	public List<Cozinha> listar() {
+		return cozinhaRepository.findAll();
+	}
+	
+
+	@GetMapping("/{cozinhaId}")
+	public Cozinha buscar(@PathVariable Long cozinhaId) {
+		return cadastroCozinha.buscarOuFalhar(cozinhaId);
+	}
+
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -48,22 +60,8 @@ public class CozinhaController {
 
 	}
 
-	// @ResponseStatus(HttpStatus.CREATED)
-	@GetMapping("/{cozinhaId}")
-	public Cozinha buscar(@PathVariable Long cozinhaId) {
-		// if (true) {
-		// throw new IllegalArgumentException("teste");
-		//
-		// }
 
-		return cadastroCozinha.buscarOuFalhar(cozinhaId);
 
-	}
-
-	@GetMapping
-	public List<Cozinha> listar() {
-		return cozinhaRepository.findAll();
-	}
 
 	@DeleteMapping("/{cozinhaId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
