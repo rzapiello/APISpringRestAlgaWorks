@@ -2,6 +2,7 @@ package com.algaworks.algafood.domain.model.mixin;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,11 +45,11 @@ public class RestauranteMixin {
 	@JsonIgnore
 	private Endereco endereco;
 
-	@JsonIgnore
-	private LocalDateTime dataCadastro;
+	//@JsonIgnore
+	private OffsetDateTime dataCadastro;
 
-	@JsonIgnore
-	private LocalDateTime dataAtualizacao;
+	//@JsonIgnore
+	private OffsetDateTime dataAtualizacao;
 
 	@JsonIgnore
 	private List<FormaPagamento> formasPagamento = new ArrayList<>();

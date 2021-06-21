@@ -2,6 +2,7 @@ package com.algaworks.algafood.domain.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +29,10 @@ public class Pedido {
 	@JoinColumn(name = "usuario_cliente_id", nullable = false)
 	private Usuario cliente;
 
-	private LocalDateTime dataCancelamento;
-	private LocalDateTime dataConfirmacao;
+	private OffsetDateTime dataCancelamento;
+	private OffsetDateTime dataConfirmacao;
 	@CreationTimestamp
-	private LocalDateTime dataCriacao;
+	private OffsetDateTime dataCriacao;
 
 	private LocalDateTime dataIntegra;
 

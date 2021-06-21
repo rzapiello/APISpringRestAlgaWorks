@@ -1,6 +1,7 @@
 package com.algaworks.algafood.api.exceptionhandler;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,7 @@ public class ApiExcepionHandler extends ResponseEntityExceptionHandler {
 
 	private Problem.ProblemBuilder createProblemBuilder(HttpStatus status, ProblemType problemType, String detail) {
 
-		LocalDateTime agora = LocalDateTime.now();
+		OffsetDateTime agora = OffsetDateTime.now();
 
 		return Problem.builder().status(status.value()).type(problemType.getUri()).title(problemType.getTitle())
 				.detail(detail).timestamp(agora);
@@ -94,10 +95,10 @@ public class ApiExcepionHandler extends ResponseEntityExceptionHandler {
 			body = Problem.builder()
 
 					.title(status.getReasonPhrase()).status(status.value()).userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
-					.timestamp(LocalDateTime.now()).build();
+					.timestamp(OffsetDateTime.now()).build();
 		} else if (body instanceof String) {
 			body = Problem.builder().title((String) body).status(status.value())
-					.userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL).timestamp(LocalDateTime.now()).build();
+					.userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL).timestamp(OffsetDateTime.now()).build();
 		}
 		return super.handleExceptionInternal(ex, body, headers, status, request);
 	}
