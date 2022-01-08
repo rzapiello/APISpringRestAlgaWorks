@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algafood.api.assembler.RestauranteModelAssembler;
-import com.algaworks.algafood.api.assembler.RestauranteModelDisassembler;
+import com.algaworks.algafood.api.assembler.RestauranteInputDisassembler;
 import com.algaworks.algafood.api.model.CozinhaModel;
 import com.algaworks.algafood.api.model.RestauranteModel;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
@@ -59,7 +59,7 @@ public class RestauranteController {
 	RestauranteModelAssembler  restauranteModelAssembler;
 	
 	@Autowired
-	RestauranteModelDisassembler  restauranteModelDisassembler;
+	RestauranteInputDisassembler  restauranteInputDisassembler;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -67,7 +67,7 @@ public class RestauranteController {
 
 		try {
 			
-			Restaurante restaurante = restauranteModelDisassembler.toDomainObject(restauranteInput);
+			Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);
 			return restauranteModelAssembler.toModel(cadastroRestaurante.salvar(restaurante));
 		} catch (EntidadeNaoEncontradaException e) {
 			throw new NegocioException(e.getMessage());
@@ -81,10 +81,14 @@ public class RestauranteController {
 
 		try {
 			
-		Restaurante restaurante = restauranteModelDisassembler.toDomainObject(restauranteInput);
+		//Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);
 		Restaurante restauranteAtual = cadastroRestaurante.buscarOuFalhar(restauranteId);
-		BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento", "endereco", "dataCadastro",
-				"produtos");
+		
+		
+		restauranteInputDisassembler.copyToDomainObject(restauranteInput, restauranteAtual);
+		
+		//BeanUtils.copyProperties(restaurante, restauranteAtual, 
+		//		"id", "formasPagamento", "endereco", "dataCadastro","produtos");
 
 
 
