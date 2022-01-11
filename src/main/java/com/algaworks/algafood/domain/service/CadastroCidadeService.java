@@ -37,6 +37,7 @@ public class CadastroCidadeService {
 
 		try {
 			cidadeRepository.deleteById(Cidadeid);
+			cidadeRepository.flush();
 		} catch (EmptyResultDataAccessException e) {
 			throw new CidadeNaoEncontradaException(Cidadeid);
 		} catch (DataIntegrityViolationException e) {
