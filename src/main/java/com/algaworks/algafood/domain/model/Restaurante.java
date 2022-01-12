@@ -1,7 +1,6 @@
 package com.algaworks.algafood.domain.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,6 @@ public class Restaurante {
 	
 	@Valid
 	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
-	@NotNull
 	@ManyToOne // (fetch = FetchType.LAZY)
 	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
@@ -53,12 +51,10 @@ public class Restaurante {
 	private Long id;
 
 
-	@NotBlank
 	@Column(nullable = false)
 	private String nome;
 
-	@NotNull
-	@PositiveOrZero
+
 	// @TaxaFrete
 	// @Multiplo(numero = 5)
 	@Column(name = " taxa_frete", nullable = false)
@@ -91,6 +87,18 @@ public class Restaurante {
 
 	@OneToMany(mappedBy = "restaurante")
 	private List<Produto> produtos = new ArrayList<>();
+	
+	
+	private Boolean ativo = Boolean.TRUE;
+	
+	
+	public void ativar() {
+		setAtivo(true);
+	}
+	
+	public void inativar() {
+		setAtivo(false);
+	}
 
 
 
