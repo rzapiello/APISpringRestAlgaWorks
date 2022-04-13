@@ -8,8 +8,8 @@ public class UsuarioNaoEncontradoException extends EntidadeNaoEncontradaExceptio
 		super(mensagem);
 	}
 
-	public UsuarioNaoEncontradoException(Long grupoId) {
-		this(String.format("Grupo de id: %d não existe", grupoId));
+	public UsuarioNaoEncontradoException(Long usuarioId) {
+		this(String.format("Grupo de id: %d não existe", usuarioId));
 	}
 	
 	

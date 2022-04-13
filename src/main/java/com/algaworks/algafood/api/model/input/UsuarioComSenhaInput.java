@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UsuarioComSenhaInput extends Usuario {
+public class UsuarioComSenhaInput extends UsuarioInput {
 	
 	@NotBlank
 	private String senha;
